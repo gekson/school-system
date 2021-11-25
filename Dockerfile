@@ -17,6 +17,6 @@ RUN chmod 755 /app/mvnw
 
 RUN ./mvnw dependency:go-offline -B
 
-RUN ./mvnw package -DskipTests
+RUN ./mvnw package
 RUN ls -al
 ENTRYPOINT ["java","-jar","target/schoolsystem-0.0.1-SNAPSHOT.jar"]
