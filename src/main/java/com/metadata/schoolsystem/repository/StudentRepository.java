@@ -12,5 +12,8 @@ import java.util.List;
 public interface StudentRepository extends PagingAndSortingRepository<Student, Long> {
 
     @Query("SELECT s FROM Student s JOIN Registration r ON s.id = r.student.id WHERE r.course.title = :title")
-    List<Student> findStudentByCourse(@Param("title") String title);
+    List<Student> findStudentsByCourse(@Param("title") String title);
+
+    @Query("SELECT s FROM Student s WHERE NOT EXISTS (SELECT r FROM Registration r WHERE r.student.id = s.id)")
+    List<Student> findStudentsWithoutCourse();
 }

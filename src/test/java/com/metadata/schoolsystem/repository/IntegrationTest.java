@@ -197,7 +197,7 @@ public class IntegrationTest {
         registration3.setRegisteredAt(LocalDateTime.now());
         entityManager.persist(registration3);
 
-        List<Student> checkStudents = studentRepository.findStudentByCourse(course.getTitle());
+        List<Student> checkStudents = studentRepository.findStudentsByCourse(course.getTitle());
 
         assertThat(checkStudents).hasSize(2).contains(student);
     }
@@ -240,8 +240,94 @@ public class IntegrationTest {
         registration3.setRegisteredAt(LocalDateTime.now());
         entityManager.persist(registration3);
 
-        List<Course> checkCourses = courseRepository.findCourseByStudent(student.getName());
+        List<Course> checkCourses = courseRepository.findCoursesByStudent(student.getName());
 
         assertThat(checkCourses).hasSize(2).contains(course);
+    }
+
+    @Test
+    public void should_find_courses_without_students() {
+        Student student = new Student("Student#1");
+        entityManager.persist(student);
+
+        Student student2 = new Student("Student#2");
+        entityManager.persist(student2);
+
+        Student student3 = new Student("Student#3");
+        entityManager.persist(student3);
+
+        Course course = new Course("Course#1");
+        entityManager.persist(course);
+
+        Course course2 = new Course("Course#2");
+        entityManager.persist(course2);
+
+        Registration registration = new Registration();
+        registration.setStudent(student);
+        registration.setCourse(course);
+        registration.setGrade(5);
+        registration.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration);
+
+        Registration registration2 = new Registration();
+        registration2.setStudent(student2);
+        registration2.setCourse(course);
+        registration2.setGrade(10);
+        registration2.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration2);
+
+        Registration registration3 = new Registration();
+        registration3.setStudent(student3);
+        registration3.setCourse(course);
+        registration3.setGrade(7);
+        registration3.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration3);
+
+        List<Course> checkCourses = courseRepository.findCoursesWithoutStudent();
+
+        assertThat(checkCourses).hasSize(1).contains(course2);
+    }
+
+    @Test
+    public void should_find_students_without_courses() {
+        Student student = new Student("Student#1");
+        entityManager.persist(student);
+
+        Student student2 = new Student("Student#2");
+        entityManager.persist(student2);
+
+        Student student3 = new Student("Student#3");
+        entityManager.persist(student3);
+
+        Course course = new Course("Course#1");
+        entityManager.persist(course);
+
+        Course course2 = new Course("Course#2");
+        entityManager.persist(course2);
+
+        Registration registration = new Registration();
+        registration.setStudent(student);
+        registration.setCourse(course);
+        registration.setGrade(5);
+        registration.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration);
+
+        Registration registration2 = new Registration();
+        registration2.setStudent(student2);
+        registration2.setCourse(course);
+        registration2.setGrade(10);
+        registration2.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration2);
+
+        Registration registration3 = new Registration();
+        registration3.setStudent(student2);
+        registration3.setCourse(course2);
+        registration3.setGrade(7);
+        registration3.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration3);
+
+        List<Student> checkStudents = studentRepository.findStudentsWithoutCourse();
+
+        assertThat(checkStudents).hasSize(1).contains(student3);
     }
 }
