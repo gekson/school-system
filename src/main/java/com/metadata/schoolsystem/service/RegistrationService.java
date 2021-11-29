@@ -69,12 +69,4 @@ public class RegistrationService {
             throw new EntityNotFoundException("This student not found");
         }
     }
-
-//    public List<Registration> findRegistrationsByStudent(Student student) {
-//        try {
-//            return registrationRepository.findRegistrationsByStudent(studentRepository.findById(student.getId()).get());
-//        } catch (NoSuchElementException e) {
-//            throw new EntityNotFoundException("This student not found");
-//        }
-//    }
 }

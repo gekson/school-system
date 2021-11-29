@@ -1,7 +1,6 @@
 package com.metadata.schoolsystem.controller;
 
 import com.metadata.schoolsystem.model.Registration;
-import com.metadata.schoolsystem.model.Student;
 import com.metadata.schoolsystem.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +23,4 @@ public class RegistrationController {
                 .status(HttpStatus.CREATED)
                 .body(this.registrationService.registerStudent(registration));
     }
-
-//    @PostMapping("/getRegistratiosByStudent")
-//    public ResponseEntity findRegistrationsByStudent(@RequestBody Student student) {
-//        return ResponseEntity
-//                .status(HttpStatus.CREATED)
-//                .body(this.registrationService.findRegistrationsByStudent(student));
-//    }
 }

@@ -129,36 +129,6 @@ public class IntegrationTest {
         System.out.println(checkRegistration.getStudent());
     }
 
-//    @Test
-//    public void should_find_integrations_by_student() {
-//        Student student = new Student("Student#1");
-//        entityManager.persist(student);
-//
-//        Course course = new Course("Course#1");
-//        entityManager.persist(course);
-//
-//        Course course2 = new Course("Course#2");
-//        entityManager.persist(course2);
-//
-//        Registration registration = new Registration();
-//        registration.setStudent(student);
-//        registration.setCourse(course);
-//        registration.setGrade(5);
-//        registration.setRegisteredAt(LocalDateTime.now());
-//        entityManager.persist(registration);
-//
-//        Registration registration2 = new Registration();
-//        registration2.setStudent(student);
-//        registration2.setCourse(course2);
-//        registration2.setGrade(10);
-//        registration2.setRegisteredAt(LocalDateTime.now());
-//        entityManager.persist(registration2);
-//
-//        List<Registration> checkRegistration = registrationRepository.findRegistrationsByStudent(student);
-//
-//        assertThat(checkRegistration).hasSize(2).contains(registration);
-//    }
-
     @Test
     public void should_find_students_by_course() {
         Student student = new Student("Student#1");
