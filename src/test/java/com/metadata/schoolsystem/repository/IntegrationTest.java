@@ -129,35 +129,35 @@ public class IntegrationTest {
         System.out.println(checkRegistration.getStudent());
     }
 
-    @Test
-    public void should_find_integrations_by_student() {
-        Student student = new Student("Student#1");
-        entityManager.persist(student);
-
-        Course course = new Course("Course#1");
-        entityManager.persist(course);
-
-        Course course2 = new Course("Course#2");
-        entityManager.persist(course2);
-
-        Registration registration = new Registration();
-        registration.setStudent(student);
-        registration.setCourse(course);
-        registration.setGrade(5);
-        registration.setRegisteredAt(LocalDateTime.now());
-        entityManager.persist(registration);
-
-        Registration registration2 = new Registration();
-        registration2.setStudent(student);
-        registration2.setCourse(course2);
-        registration2.setGrade(10);
-        registration2.setRegisteredAt(LocalDateTime.now());
-        entityManager.persist(registration2);
-
-        List<Registration> checkRegistration = registrationRepository.findRegistrationsByStudent(student);
-
-        assertThat(checkRegistration).hasSize(2).contains(registration);
-    }
+//    @Test
+//    public void should_find_integrations_by_student() {
+//        Student student = new Student("Student#1");
+//        entityManager.persist(student);
+//
+//        Course course = new Course("Course#1");
+//        entityManager.persist(course);
+//
+//        Course course2 = new Course("Course#2");
+//        entityManager.persist(course2);
+//
+//        Registration registration = new Registration();
+//        registration.setStudent(student);
+//        registration.setCourse(course);
+//        registration.setGrade(5);
+//        registration.setRegisteredAt(LocalDateTime.now());
+//        entityManager.persist(registration);
+//
+//        Registration registration2 = new Registration();
+//        registration2.setStudent(student);
+//        registration2.setCourse(course2);
+//        registration2.setGrade(10);
+//        registration2.setRegisteredAt(LocalDateTime.now());
+//        entityManager.persist(registration2);
+//
+//        List<Registration> checkRegistration = registrationRepository.findRegistrationsByStudent(student);
+//
+//        assertThat(checkRegistration).hasSize(2).contains(registration);
+//    }
 
     @Test
     public void should_find_students_by_course() {
@@ -329,5 +329,48 @@ public class IntegrationTest {
         List<Student> checkStudents = studentRepository.findStudentsWithoutCourse();
 
         assertThat(checkStudents).hasSize(1).contains(student3);
+    }
+
+    @Test
+    public void should_find_size_courses_by_students() {
+        Student student = new Student("Student#1");
+        entityManager.persist(student);
+
+        Student student2 = new Student("Student#2");
+        entityManager.persist(student2);
+
+        Student student3 = new Student("Student#3");
+        entityManager.persist(student3);
+
+        Course course = new Course("Course#1");
+        entityManager.persist(course);
+
+        Course course2 = new Course("Course#2");
+        entityManager.persist(course2);
+
+        Registration registration = new Registration();
+        registration.setStudent(student);
+        registration.setCourse(course);
+        registration.setGrade(5);
+        registration.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration);
+
+        Registration registration2 = new Registration();
+        registration2.setStudent(student2);
+        registration2.setCourse(course);
+        registration2.setGrade(10);
+        registration2.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration2);
+
+        Registration registration3 = new Registration();
+        registration3.setStudent(student);
+        registration3.setCourse(course2);
+        registration3.setGrade(7);
+        registration3.setRegisteredAt(LocalDateTime.now());
+        entityManager.persist(registration3);
+
+        Integer checkSizeCourses = courseRepository.findSizeCoursesByStudent(student.getName());
+
+        assertThat(checkSizeCourses).isEqualTo(2);
     }
 }

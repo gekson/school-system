@@ -14,6 +14,9 @@ public interface StudentRepository extends PagingAndSortingRepository<Student, L
     @Query("SELECT s FROM Student s JOIN Registration r ON s.id = r.student.id WHERE r.course.title = :title")
     List<Student> findStudentsByCourse(@Param("title") String title);
 
+    @Query("SELECT count(s) FROM Student s JOIN Registration r ON s.id = r.student.id WHERE r.course.title = :title")
+    Integer findSizeStudentsByCourse(@Param("title") String title);
+
     @Query("SELECT s FROM Student s WHERE NOT EXISTS (SELECT r FROM Registration r WHERE r.student.id = s.id)")
     List<Student> findStudentsWithoutCourse();
 }

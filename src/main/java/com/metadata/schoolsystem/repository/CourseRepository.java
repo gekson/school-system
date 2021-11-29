@@ -14,6 +14,9 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Lon
     @Query("SELECT c FROM Course c JOIN Registration r ON c.id = r.course.id WHERE r.student.name = :name")
     List<Course> findCoursesByStudent(@Param("name") String name);
 
+    @Query("SELECT count (c) FROM Course c JOIN Registration r ON c.id = r.course.id WHERE r.student.name = :name")
+    Integer findSizeCoursesByStudent(@Param("name") String name);
+
     @Query("SELECT c FROM Course c WHERE NOT EXISTS (SELECT r FROM Registration r WHERE r.course.id = c.id)")
     List<Course> findCoursesWithoutStudent();
 }
